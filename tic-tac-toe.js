@@ -1,10 +1,10 @@
 //alert('Code Working?')
 window.onload = function() {
 
-
     const boardgame = document.getElementById("board");
     const boardelements = boardgame.getElementsByTagName("div");
     const statusDiv = document.getElementById("status");
+    const newGameButton = document.querySelector(".btn");
 
     boardgame.classList.add("board");
 
@@ -42,13 +42,8 @@ window.onload = function() {
             square.classList.add(currentPlayer);
             boardState[i] = currentPlayer;
 
-
-
-
-
             const winner = checkWinner();
             if (winner) {
-
                 statusDiv.textContent = `Congratulations! ${winner} is the Winner!`;
                 statusDiv.classList.add("you-won");
                 end = true;
@@ -65,4 +60,23 @@ window.onload = function() {
             square.classList.remove("hover");
         });
     }
+
+    //process to create new game:
+    newGameButton.addEventListener("click", function() {
+        boardState = Array(9).fill("");
+        end = false;
+        X = true;
+
+        // clear board
+        for (let square of boardelements) {
+            square.textContent = "";
+            square.classList.remove("X", "O", "hover");
+        }
+
+
+
+
+        statusDiv.textContent = "Move your mouse over a square and click to play an X or an O.";
+        statusDiv.classList.remove("you-won");
+    });
 };
